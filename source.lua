@@ -246,7 +246,7 @@ function startFling()
 
 		noclip()
 
-		player.Character:MoveTo(target.Character.HumanoidRootPart.Position + Vector3.new(1,0,0))
+		player.Character:MoveTo(target.Character.HumanoidRootPart.Position + Vector3.new(0.5,0,0))
 
 		flinging = false
 		for _, child in pairs(player.Character:GetDescendants()) do
