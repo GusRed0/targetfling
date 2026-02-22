@@ -188,7 +188,7 @@ function noclip()
 	local function NoclipLoop()
 		if player.Character ~= nil then
 			for _, child in pairs(player.Character:GetDescendants()) do
-				if child:IsA("BasePart") and child.CanCollide == true then
+				if child:IsA("BasePart") then
 					child.CanCollide = false
 				end
 			end
