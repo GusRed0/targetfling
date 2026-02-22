@@ -19,6 +19,7 @@ local UIDragDetector = Instance.new("UIDragDetector")
 targetFlingv1.Name = "targetFlingv1"
 targetFlingv1.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 targetFlingv1.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+targetFlingv1.ResetOnSpawn = false
 
 MainFrame.Name = "MainFrame"
 MainFrame.Parent = targetFlingv1
