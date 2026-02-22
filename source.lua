@@ -197,6 +197,21 @@ function noclip()
 	Noclipping = RunService.Stepped:Connect(NoclipLoop)
 end
 
+function unnoclip()
+	if Noclipping then
+		Noclipping:Disconnect()
+	end
+	task.wait(.1)
+
+	if player.Character ~= nil then
+		for _, child in pairs(player.Character:GetDescendants()) do
+			if child:IsA("BasePart") and child.CanCollide == false then
+				child.CanCollide = true
+			end
+		end
+	end
+end
+
 function stopFling()
 	flinging = false
 	wait(.1)
@@ -228,9 +243,9 @@ function startFling()
 	end
 	if target then
 		local originalPosition = getRoot(player.Character).Position
-		
+
 		noclip()
-		
+
 		player.Character:MoveTo(target.Character.HumanoidRootPart.Position)
 
 		flinging = false
@@ -255,9 +270,10 @@ function startFling()
 			end
 		end
 		flinging = true
-		
+
 		local function flingDied()
 			stopFling()
+			unnoclip()
 			flingDied:Disconnect()
 		end
 
@@ -271,20 +287,18 @@ function startFling()
 			until flinging == false
 		end)
 
-		task.wait(2.5)
-		
+		task.wait(1)
 		flinging = false
 		stopFling()
+		unnoclip()
 		player.Character:MoveTo(originalPosition)
-		
+
 	end
 end
 
-flingButton.Activated:Connect(startFling)
-
 -- auto write player names
 
-mouse.Button2Down:Connect(function()
+function autoFillName ()
 	local target = mouse.Target
 	if target then
 		local ch = target:FindFirstAncestorOfClass("Model")
@@ -295,4 +309,7 @@ mouse.Button2Down:Connect(function()
 			end
 		end
 	end
-end)
+end
+
+flingButton.Activated:Connect(startFling)
+mouse.Button2Down:Connect(autoFillName)
